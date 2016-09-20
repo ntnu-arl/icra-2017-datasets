@@ -3,10 +3,9 @@ Panels:
     Help Height: 0
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /Status1
-      Splitter Ratio: 0.699605
-    Tree Height: 853
+      Expanded: ~
+      Splitter Ratio: 0.620553
+    Tree Height: 828
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -25,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: rovio_pclChk
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -54,44 +53,81 @@ Visualization Manager:
       Radius: 0.0125
       Reference Frame: <Fixed Frame>
       Value: true
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /cam0/image_raw
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: cam0
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Value: false
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /cam1/image_raw
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: cam1
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Value: false
+    - Alpha: 1
+      Class: rviz_plugin_tutorials/Imu
+      Color: 204; 51; 204
+      Enabled: false
+      History Length: 1
+      Name: imu0
+      Topic: /imu0
+      Value: false
+    - Class: rviz/Axes
+      Enabled: false
+      Length: 0.25
+      Name: body
+      Radius: 0.025
+      Reference Frame: body
+      Value: false
+    - Class: rviz/Axes
+      Enabled: false
+      Length: 0.175
+      Name: stereo_link
+      Radius: 0.0175
+      Reference Frame: stereo_link
+      Value: false
     - Class: rviz/Axes
       Enabled: true
       Length: 0.25
-      Name: IMU
+      Name: rovio_imu
       Radius: 0.01
       Reference Frame: imu
       Value: true
     - Class: rviz/Axes
       Enabled: true
       Length: 0.25
-      Name: Cam_0
+      Name: rovio_camera0
       Radius: 0.01
       Reference Frame: camera0
       Value: true
     - Class: rviz/Axes
       Enabled: true
       Length: 0.25
-      Name: Cam_1
+      Name: rovio_camera1
       Radius: 0.01
       Reference Frame: camera1
       Value: true
-    - Class: rviz/Axes
-      Enabled: true
-      Length: 0.25
-      Name: body
-      Radius: 0.025
-      Reference Frame: body
-      Value: true
     - Angle Tolerance: 0
       Class: rviz/Odometry
-      Color: 255; 25; 0
-      Enabled: true
+      Color: 255; 255; 0
+      Enabled: false
       Keep: 1
-      Length: 1
-      Name: rovio_odometry
+      Length: 0.325
+      Name: rovio_body
       Position Tolerance: 0
-      Topic: /rovio/odometry
-      Value: true
+      Topic: /rovio/odometry_body
+      Value: false
     - Angle Tolerance: 0
       Class: rviz/Odometry
       Color: 0; 255; 0
@@ -104,16 +140,69 @@ Visualization Manager:
       Value: true
     - Class: rviz/MarkerArray
       Enabled: false
-      Marker Topic: /nbvplanner/octomap_occupied
-      Name: occupied
+      Marker Topic: /nbvplanner/octomap_free
+      Name: map_free
       Namespaces:
         {}
       Queue Size: 100
       Value: false
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /nbvplanner/octomap_occupied
+      Name: map_occupied
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: rgb
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 255
+      Min Color: 0; 0; 0
+      Min Intensity: 10
+      Name: stereo_vision
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.01
+      Style: Flat Squares
+      Topic: /stereo_vision
+      Use Fixed Frame: true
+      Use rainbow: false
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /rovio/frustum
+      Name: rovio_frustum
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
     - Class: rviz/Marker
       Enabled: false
       Marker Topic: /rovio/markers
-      Name: rovio_markers
+      Name: rovio_uncertainty
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /rovio/bearing_arrows
+      Name: rovio_bearing
       Namespaces:
         {}
       Queue Size: 100
@@ -130,13 +219,13 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: RGB8
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 255
       Min Color: 0; 0; 0
       Min Intensity: 0
-      Name: rovio_pclChk
+      Name: rovio_pcl
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -144,17 +233,80 @@ Visualization Manager:
       Size (m): 0.075
       Style: Spheres
       Topic: /rovio/pclChk
-      Unreliable: false
       Use Fixed Frame: true
       Use rainbow: false
+      Value: false
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /workspace
+      Name: workspace
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /inspectionPath
+      Name: nbvp_tree
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /inspectionPathStats
+      Name: nbvp_stats
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /bestInspectionPath
+      Name: nbvp_best
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /reInspectionPath
+      Name: bsp_tree
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /reInspectionPathStats
+      Name: bsp_stats
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /bestReinspectionPath
+      Name: bsp_best
+      Namespaces:
+        {}
+      Queue Size: 100
       Value: true
     - Class: rviz/Axes
-      Enabled: true
+      Enabled: false
       Length: 0.25
       Name: reference
       Radius: 0.0175
       Reference Frame: current_reference
-      Value: true
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /planner_path_vis
+      Name: planner_path_vis
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
     - Alpha: 1
       Class: mav_rviz_plugin/RollPitchYawrateThrust
       ColorPsi: 204; 51; 204
@@ -167,7 +319,6 @@ Visualization Manager:
       Name: command_RollPitchYawrateThrust
       Scale: 9.81
       Topic: /command/roll_pitch_yawrate_thrust
-      Unreliable: false
       Value: false
     - Alpha: 0.5
       Class: mav_rviz_plugin/RollPitchYawrateThrust
@@ -181,45 +332,14 @@ Visualization Manager:
       Name: loopback_RollPitchYawrateThrust
       Scale: 9.81
       Topic: /command_loopback/roll_pitch_yawrate_thrust
-      Unreliable: false
       Value: false
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /bsp_rovio/frustum
       Name: bsp_frustum
       Namespaces:
-        bsp_frustum: true
+        {}
       Queue Size: 100
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: RGB8
-      Decay Time: 0
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 4096
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: bsp_pclChk
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.075
-      Style: Spheres
-      Topic: /bsp_rovio/pcl_chk
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
       Value: true
     - Class: rviz/Axes
       Enabled: true
@@ -243,21 +363,191 @@ Visualization Manager:
       Reference Frame: camera1_bsp
       Value: true
     - Class: rviz/Marker
-      Enabled: true
+      Enabled: false
       Marker Topic: /bsp_rovio/markers
-      Name: bsp_markers
+      Name: bsp_uncertainty
       Namespaces:
         {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: rviz/MarkerArray
-      Enabled: true
+      Enabled: false
       Marker Topic: /bsp_rovio/bearing_arrows
       Name: bsp_bearing
       Namespaces:
-        bsp_bearing_arrow: true
+        {}
       Queue Size: 100
-      Value: true
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /nbvplanner/octomap_occupied_height_processed
+      Name: pp_map_height
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /nbvplanner/octomap_occupied_probability_processed
+      Name: pp_map_probability
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /nbvplanner/octomap_free_height_processed
+      Name: pp_free_height
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /nbvplanner/octomap_free_probability_processed
+      Name: pp_free_probability
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: rgb
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 10
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 255
+      Min Color: 0; 0; 0
+      Min Intensity: 3
+      Name: pp_stereo
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.01
+      Style: Flat Squares
+      Topic: /stereo_vision_processed
+      Use Fixed Frame: true
+      Use rainbow: false
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /inspectionPath_processed
+      Name: pp_nbvp_tree
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /bestInspectionPath_processed
+      Name: pp_nbvp_best
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /bestInspectionPath_first_processed
+      Name: pp_nbvp_firstbest
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /inspectionPathStats_processed
+      Name: pp_nbvp_stats
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /reInspectionPath_processed
+      Name: pp_bsp_tree
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /bestReinspectionPath_processed
+      Name: pp_bsp_best
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /reInspectionPathStats_processed
+      Name: pp_bsp_stats
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/Marker
+      Enabled: false
+      Marker Topic: /inspectionWorkspace_processed
+      Name: pp_workspace
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /rovio/bearing_arrows_processed
+      Name: pp_rovio_bearing
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: pp_rovio_pcl
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.1
+      Style: Spheres
+      Topic: /rovio/pclChk_processed
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /bsp_rovio/bearing_arrows_processed
+      Name: pp_bsp_bearing
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
@@ -282,22 +572,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 18.849
+      Distance: 11.3531
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.38361
-        Y: -1.74642
-        Z: 1.13734
+        X: 5.50221
+        Y: 2.97042
+        Z: -1.33915
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.699797
+      Pitch: 0.374796
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.55863
+      Yaw: 3.90679
     Saved: ~
 Window Geometry:
   Displays:
@@ -305,7 +595,7 @@ Window Geometry:
   Height: 1056
   Hide Left Dock: false
   Hide Right Dock: true
-  QMainWindow State: 000000ff00000000fd00000004000000000000016a00000396fc020000000efb000000100044006900730070006c006100790073010000002800000396000000dd00fffffffb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb00000008006d00610073006b00000001da000000960000000000000000fb0000000c0064006500620075006700310000000231000000ce0000000000000000fb0000000c00640065006200750067003200000002cb000000f30000000000000000fb0000000800630061006d003000000001f2000000970000000000000000fb0000000800630061006d00310000000254000000c00000000000000000fb00000012006200730070005f0069006d00610067006500000002f3000000af0000000000000000000000010000010f0000037dfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007300000000410000037d000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007450000003efc0100000002fb0000000800540069006d0065010000000000000745000002f600fffffffb0000000800540069006d00650100000000000004500000000000000000000005d50000039600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001270000037dfc020000000efb000000100044006900730070006c00610079007301000000410000037d000000dd00fffffffb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb00000008006d00610073006b00000001da000000960000000000000000fb0000000c0064006500620075006700310000000231000000ce0000000000000000fb0000000c00640065006200750067003200000002cb000000f30000000000000000fb0000000800630061006d00300000000327000000970000001600fffffffb0000000800630061006d00310000000254000000c00000001600fffffffb0000001c006200730070005f00630061006d0030005f0069006d00610067006500000002f3000000af0000000000000000000000010000010f0000037dfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007300000000410000037d000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073f0000003efc0100000002fb0000000800540069006d006501000000000000073f0000030500fffffffb0000000800540069006d00650100000000000004500000000000000000000006120000037d00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -314,6 +604,10 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 1861
-  X: 59
+  Width: 1855
+  X: 65
   Y: 24
+  cam0:
+    collapsed: false
+  cam1:
+    collapsed: false
